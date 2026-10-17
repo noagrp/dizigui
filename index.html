@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0d1020">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="弟子规">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="./icon-512.png">
+<link rel="apple-touch-icon" href="./apple-touch-icon.png">
+<title>弟子规</title>
+<style>
+:root{
+  --bg:#080914;--bg2:#0d1020;--surface:#14182a;--surface2:#1a2036;
+  --paper:#eee6d2;--ink:#f0ebdf;--muted:#9799a9;--indigo:#8f9ed2;
+  --indigo2:#c2caee;--line:rgba(194,202,238,.17);--shadow:0 18px 48px rgba(0,0,0,.30)
+}
+*{box-sizing:border-box}html{min-height:100%;background:var(--bg)}
+body{margin:0;min-height:100vh;color:var(--ink);font-family:"Noto Serif SC","Songti SC","Microsoft YaHei",system-ui,-apple-system,sans-serif;
+background:radial-gradient(circle at 8% 0%,rgba(92,110,175,.15),transparent 28rem),radial-gradient(circle at 95% 18%,rgba(155,127,88,.07),transparent 24rem),linear-gradient(180deg,var(--bg2),var(--bg))}
+.page{width:min(1220px,100%);margin:0 auto;padding:max(28px,env(safe-area-inset-top)) max(18px,env(safe-area-inset-right)) max(30px,env(safe-area-inset-bottom)) max(18px,env(safe-area-inset-left))}
+header{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:24px;padding-bottom:18px;border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:14px;min-width:0}.mark{width:56px;height:56px;display:grid;place-items:center;border-radius:17px;border:1px solid rgba(194,202,238,.43);background:rgba(94,108,170,.17);color:var(--indigo2);font-size:29px;font-weight:800}
+h1{margin:0;color:#ece6d9;font-size:clamp(28px,4vw,42px)}.sub{margin:5px 0 0;color:var(--muted);font-size:12px}.back{color:var(--muted);text-decoration:none;font-size:12px;white-space:nowrap}.back:hover{color:var(--indigo2)}
+.about{margin-bottom:14px;padding:16px 17px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(180deg,rgba(25,30,51,.92),rgba(16,19,33,.92))}
+.about-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px 18px}.about-item{min-width:0}.about-item b{display:block;margin-bottom:3px;color:var(--indigo2);font-size:11px}.about-item span{color:#c7c5c0;font-size:12px;line-height:1.65}.about-summary{grid-column:1/-1;padding-top:4px}
+.notice{margin-bottom:18px;padding:15px 17px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(180deg,rgba(25,30,51,.92),rgba(16,19,33,.92));color:#c7c5c0;font-size:12px;line-height:1.75}.notice b{color:var(--indigo2)}
+.reader{display:grid;grid-template-columns:minmax(230px,292px) minmax(0,1fr);gap:20px;align-items:start}
+.toc{position:sticky;top:14px;padding:14px;border:1px solid var(--line);border-radius:18px;background:rgba(16,19,33,.84);box-shadow:var(--shadow)}
+.search{width:100%;padding:11px 12px;margin-bottom:10px;border:1px solid var(--line);border-radius:12px;background:#0b0d19;color:var(--ink);font:inherit;outline:none}.search:focus{border-color:rgba(194,202,238,.52)}
+.toc-list{display:flex;flex-direction:column;gap:5px;max-height:68vh;overflow:auto;padding-right:3px;scrollbar-width:thin;scrollbar-color:rgba(194,202,238,.24) transparent}
+.chapter-label{margin:11px 8px 3px;color:#7f89b4;font-size:10px;letter-spacing:.12em}.chapter-label:first-child{margin-top:2px}
+.toc-btn{width:100%;display:flex;align-items:center;gap:9px;text-align:left;padding:9px 10px;border:1px solid transparent;border-radius:10px;background:transparent;color:#aaaab7;font:inherit;font-size:12px;cursor:pointer}
+.toc-btn span{color:#676b80;font-size:10px;min-width:24px}.toc-btn:hover,.toc-btn.active{border-color:var(--line);background:#191e31;color:#ece8dd}
+.article{min-width:0;padding:24px;border:1px solid var(--line);border-radius:20px;background:linear-gradient(180deg,var(--surface2),var(--surface));box-shadow:var(--shadow)}
+.article-head{display:flex;justify-content:space-between;align-items:flex-start;gap:15px;margin-bottom:18px}.kicker{color:#8791bd;font-size:10px;letter-spacing:.12em}.article h2{margin:5px 0 0;color:#eee7d8;font-size:29px}.progress{padding:7px 10px;border:1px solid var(--line);border-radius:999px;color:#a0a2af;font-size:11px;white-space:nowrap}
+.chapter-summary{margin:-6px 0 17px;padding:10px 12px;border-left:2px solid rgba(143,158,210,.45);color:#9fa3b5;font-size:11px;line-height:1.7}
+.original{margin:0 0 20px;padding:20px;border:1px solid rgba(194,202,238,.21);border-radius:16px;background:var(--paper);color:#2f3040;box-shadow:inset 0 0 0 1px rgba(255,255,255,.4)}
+.original p{margin:0;font-size:clamp(19px,2.6vw,27px);line-height:1.9;letter-spacing:.045em}.original p+p{margin-top:4px}
+.block{padding-top:16px;margin-top:16px;border-top:1px solid rgba(194,202,238,.13)}.block b{display:block;margin-bottom:6px;color:var(--indigo2);font-size:12px}.block p{margin:0;color:#c9c6bd;font-size:13px;line-height:1.85}
+.terms{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.term{padding:10px 11px;border:1px solid rgba(194,202,238,.12);border-radius:11px;background:rgba(5,7,15,.20)}.term strong{display:block;margin-bottom:4px;color:#ddd9cf;font-size:12px}.term span{color:#aaa9ad;font-size:11px;line-height:1.65}
+.nav{display:flex;justify-content:space-between;gap:10px;margin-top:22px;padding-top:17px;border-top:1px solid rgba(194,202,238,.14)}.nav button{min-height:42px;padding:9px 14px;border-radius:11px;border:1px solid var(--line);background:#101322;color:#c9c7c0;font:inherit;font-size:12px;cursor:pointer}.nav button:hover:not(:disabled){border-color:rgba(194,202,238,.5);color:#f2eee3}.nav button:disabled{opacity:.32;cursor:default}
+footer{display:flex;justify-content:center;align-items:center;gap:8px;margin-top:38px;padding-top:18px;border-top:1px solid var(--line);color:#7f7d87;font-size:11px}footer a{color:inherit;text-decoration:none}footer a:hover{color:var(--indigo2)}.empty{padding:12px;color:#817f8c;font-size:11px}
+@media(max-width:820px){.reader{grid-template-columns:1fr}.toc{position:static}.toc-list{max-height:none}.chapter-label{margin-top:14px}.toc-btn{padding:9px 10px}}
+@media(max-width:560px){.page{padding-left:13px;padding-right:13px}.mark{width:50px;height:50px;font-size:27px}.brand h1{font-size:28px}.back{font-size:11px}.article{padding:17px}.original{padding:15px}.original p{font-size:19px;line-height:1.85}.terms{grid-template-columns:1fr}.about-grid{grid-template-columns:1fr}.about-summary{grid-column:auto}}
+</style>
+</head>
+<body>
+<main class="page">
+<header>
+  <div class="brand"><div class="mark" aria-hidden="true">规</div><div><h1>弟子规</h1><p class="sub">原文 · 白话解释 · 字词小解 · 文化小记</p></div></div>
+  <a class="back" href="https://noagrp.github.io/zhong/">返回 中</a>
+</header>
+<section class="about" id="bookAbout" aria-label="书籍简介"></section>
+<div class="notice" id="sourceNotice"></div>
+<div class="reader">
+  <aside class="toc">
+    <input class="search" id="search" type="search" placeholder="搜索原文、章节、主题或字词">
+    <div class="toc-list" id="tocList"></div>
+  </aside>
+  <article class="article" id="article" aria-live="polite"></article>
+</div>
+<footer><a href="https://noagrp.github.io/home/">noagrp home</a><span>·</span><a href="https://noagrp.github.io/zhong/">中</a></footer>
+</main>
+<script src="./src/dizigui-engine.js"></script>
+<script>
+(async()=>{
+ const $=id=>document.getElementById(id);
+ try{
+  const engine=await loadDiziguiEngine('./data/dizigui.json?v=20261017-1');
+  const meta=engine.getMeta(),info=meta.bookInfo||{};
+  const rows=[["书名",info.title],["作者 / 传统归属",info.authorship],["时代",info.period],["类别",info.category],["结构",info.structure]].filter(x=>x[1]);
+  $("bookAbout").innerHTML='<div class="about-grid">'+rows.map(x=>'<div class="about-item"><b>'+x[0]+'</b><span>'+x[1]+'</span></div>').join('')+(info.summary?'<div class="about-item about-summary"><b>简介</b><span>'+info.summary+'</span></div>':'')+'</div>';
+  $("sourceNotice").innerHTML='<b>版本说明</b><br>'+meta.sourceNote+'<br><br><b>阅读原则</b><br>'+meta.readingNote;
+
+  const all=engine.list();let selected=all[0];
+
+  function renderToc(list=all){
+    if(!list.length){$("tocList").innerHTML='<div class="empty">没有找到相关内容。</div>';return;}
+    let lastChapter=null,html='';
+    list.forEach(item=>{
+      const c=engine.getChapter(item.chapter)||{name:item.chapter};
+      if(c.name!==lastChapter){html+='<div class="chapter-label">'+c.name+'</div>';lastChapter=c.name;}
+      const i=engine.indexOf(item.id)+1;
+      html+='<button class="toc-btn'+(selected&&selected.id===item.id?' active':'')+'" type="button" data-id="'+item.id+'"><span>'+String(i).padStart(2,"0")+'</span>'+item.title+'</button>';
+    });
+    $("tocList").innerHTML=html;
+    $("tocList").querySelectorAll(".toc-btn").forEach(btn=>btn.addEventListener("click",()=>select(btn.dataset.id,true)));
+  }
+
+  function renderArticle(item){
+    const idx=engine.indexOf(item.id),prev=engine.getPrevious(item.id),next=engine.getNext(item.id),chapter=engine.getChapter(item.chapter)||{};
+    $("article").innerHTML=
+      '<div class="article-head"><div><div class="kicker">弟子规 · '+(chapter.name||'')+' · 第 '+(idx+1)+' 段</div><h2>'+item.title+'</h2></div><div class="progress">'+(idx+1)+' / '+all.length+'</div></div>'+
+      (chapter.summary?'<div class="chapter-summary">'+chapter.summary+'</div>':'')+
+      '<div class="original">'+item.original.map(x=>'<p>'+x+'</p>').join("")+'</div>'+
+      '<div class="block"><b>白话解释</b><p>'+item.explanation+'</p></div>'+
+      (item.terms&&item.terms.length?'<div class="block"><b>字词小解</b><div class="terms">'+item.terms.map(t=>'<div class="term"><strong>'+t[0]+'</strong><span>'+t[1]+'</span></div>').join("")+'</div></div>':'')+
+      (item.note?'<div class="block"><b>文化小记 / 现代提示</b><p>'+item.note+'</p></div>':'')+
+      '<div class="nav"><button id="prevBtn" type="button" '+(!prev?'disabled':'')+'>← 上一段</button><button id="nextBtn" type="button" '+(!next?'disabled':'')+'>下一段 →</button></div>';
+    $("prevBtn").addEventListener("click",()=>prev&&select(prev.id,true));$("nextBtn").addEventListener("click",()=>next&&select(next.id,true));
+  }
+  function select(id,scroll){const item=engine.get(id);if(!item)return;selected=item;renderArticle(item);renderToc(engine.search($("search").value));if(scroll&&matchMedia("(max-width:820px)").matches)$("article").scrollIntoView({behavior:"smooth",block:"start"});}
+  $("search").addEventListener("input",e=>renderToc(engine.search(e.target.value)));
+  renderToc();renderArticle(selected);
+  if("serviceWorker" in navigator)navigator.serviceWorker.register("./sw.js").catch(()=>{});
+ }catch(e){$("article").innerHTML='<div class="empty">资料载入失败，请刷新页面再试。</div>';}
+})();
+</script>
+</body>
+</html>
